@@ -1,16 +1,17 @@
 const express = require('express');
 const helmet = require('helmet');
+const ejs = require("ejs");
 const app = express();
-const ejs = require("ejs")
+const db = require('./model/db')
 
 app.set('view engine', ejs)
 app.set('view', './views')
-app.use('/public',express.static(_dirname+'/public'));
+app.use('/public', express.static(__dirname+'/public'));
 
 
 app.use(helmet())
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
 const mainRouter = require('./router/mainRouter')
 app.use('/',mainRouter)
@@ -22,5 +23,7 @@ app.use('/',mainRouter)
 */
 
 app.listen(3000, function(req,res){
+
+    db.sequelize.sync({force:false})
     console.log("서버 실행중")
 })

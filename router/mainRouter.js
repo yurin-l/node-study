@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../model/db');
 
 router.get("/", function(req,res){
-    res.render('main',{titel:"영화리뷰사이트"})
+    res.render('main',{title:"영화리뷰사이트"})
 })
 
 router.get("/about", function(req,res){
